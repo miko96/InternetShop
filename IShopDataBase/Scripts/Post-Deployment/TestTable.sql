@@ -1,0 +1,2 @@
+﻿INSERT INTO ISH.TestTable
+VALUES (1,'Tes1')
