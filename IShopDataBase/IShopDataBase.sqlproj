@@ -68,12 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="IShopDataBase.publish.xml" />
+    <None Include="Scripts\Post-Deployment\InsertDefaultComments.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="ISH\Tables\ISH.TestTable.sql" />
     <Build Include="Scripts\Pre-Deployment\DefaultShema.sql" />
     <PostDeploy Include="Scripts\Post-Deployment\PostDeploymentScript.sql" />
-    <None Include="Scripts\Post-Deployment\TestTable.sql" />
+    <None Include="Scripts\Post-Deployment\InsertDefaultPosts.sql" />
+    <Build Include="ISH\Tables\ISH.Post.sql" />
+    <Build Include="ISH\Tables\ISH.Comment.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\Pre-Deployment\PreDeploymentScript.sql" />

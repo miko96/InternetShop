@@ -1,13 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "IShopDataBase", "IShopDataBase\IShopDataBase.sqlproj", "{0B4B40F3-3B71-48DF-B640-32CBC65A4E89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IShop.DataLayer", "IShop.DataLayer\IShop.DataLayer.csproj", "{4C3C0A58-ED21-4C89-8E65-241AA9A0DCFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IShop.WebApi", "IShop.WebApi\IShop.WebApi.csproj", "{548A6D48-7EBC-406E-86C5-9D239B3E29CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IShop.BussinesLayer", "IShop.BussinesLayer\IShop.BussinesLayer.csproj", "{F025865D-136C-4697-A56C-DFE4D236F8F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{BAEFC243-2F00-4E9E-A518-9FDB30080059}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLayer", "BusinessLayer", "{26CF62EF-0615-4F24-B7E2-63B74DC7D66C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{B2499C16-6027-4CDD-BEB9-7901A3833F41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6FFCD486-D1F2-4B4A-B8BF-4DEA22FAD5A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IShop.BusinessLayer.UnitTests", "IShop.BusinessLayer.UnitTests\IShop.BusinessLayer.UnitTests.csproj", "{1877CBF4-1231-4E51-8173-5BCCE035DA4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,9 +41,24 @@ Global
 		{548A6D48-7EBC-406E-86C5-9D239B3E29CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{548A6D48-7EBC-406E-86C5-9D239B3E29CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{548A6D48-7EBC-406E-86C5-9D239B3E29CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F025865D-136C-4697-A56C-DFE4D236F8F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F025865D-136C-4697-A56C-DFE4D236F8F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F025865D-136C-4697-A56C-DFE4D236F8F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F025865D-136C-4697-A56C-DFE4D236F8F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1877CBF4-1231-4E51-8173-5BCCE035DA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1877CBF4-1231-4E51-8173-5BCCE035DA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1877CBF4-1231-4E51-8173-5BCCE035DA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1877CBF4-1231-4E51-8173-5BCCE035DA4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C3C0A58-ED21-4C89-8E65-241AA9A0DCFB} = {BAEFC243-2F00-4E9E-A518-9FDB30080059}
+		{548A6D48-7EBC-406E-86C5-9D239B3E29CC} = {B2499C16-6027-4CDD-BEB9-7901A3833F41}
+		{F025865D-136C-4697-A56C-DFE4D236F8F2} = {26CF62EF-0615-4F24-B7E2-63B74DC7D66C}
+		{6FFCD486-D1F2-4B4A-B8BF-4DEA22FAD5A6} = {26CF62EF-0615-4F24-B7E2-63B74DC7D66C}
+		{1877CBF4-1231-4E51-8173-5BCCE035DA4D} = {6FFCD486-D1F2-4B4A-B8BF-4DEA22FAD5A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {853868EE-8228-4DE3-AB56-C95CB72504FC}

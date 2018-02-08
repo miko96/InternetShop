@@ -14,7 +14,7 @@ namespace IShop.WebApi
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(DIContainer.RegisterServices)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:8080/")
+                .UseUrls("http://localhost:8181/")
                 .Build();
     }
 }

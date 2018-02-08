@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IShop.WebApi
 {
@@ -6,9 +7,14 @@ namespace IShop.WebApi
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            DataLayer.DIContainer.RegisterServices(services);
+            BussinesLayer.DIContainer.RegisterServices(services);
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                        options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
+            services.AddAutoMapper(cfg => cfg.AddProfiles("IShop.WebApi", "IShop.BussinesLayer"));
         }
     }
 }

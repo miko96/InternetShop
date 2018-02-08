@@ -1,0 +1,9 @@
+﻿CREATE TABLE [ISH].[Comment]
+(
+	[CommentId] INT IDENTITY(1, 1) NOT NULL,
+	[PostId] INT NOT NULL,
+	[CommentText] NVARCHAR(255) NOT NULL,
+
+	CONSTRAINT PK_Comment PRIMARY KEY (CommentId),
+	CONSTRAINT FK_Comment_PostId FOREIGN KEY (PostId) REFERENCES ISH.Post (PostId)
+)

@@ -9,4 +9,5 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\TestTable.sql
+:r .\InsertDefaultPosts.sql
+:r .\InsertDefaultComments.sql

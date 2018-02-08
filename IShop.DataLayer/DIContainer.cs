@@ -1,4 +1,5 @@
 ﻿using IShop.DataLayer.Common;
+using IShop.DataLayer.Common.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,8 +9,7 @@ namespace IShop.DataLayer
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddDbContext<ShopContext>(options => options.UseSqlServer(AppSettings.ConnectionString));
-            
+            services.AddScoped(opt => UnitOfWorkFactory.Create());
         }
     }
 }
