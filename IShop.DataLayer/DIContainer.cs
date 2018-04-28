@@ -1,11 +1,9 @@
-﻿using IShop.DataLayer.Common;
-using IShop.DataLayer.Common.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
+﻿using IShop.DataLayer.Common.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IShop.DataLayer
 {
-    public static class DIContainer
+    public static class DiContainer
     {
         public static void RegisterServices(IServiceCollection services)
         {

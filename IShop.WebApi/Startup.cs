@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace IShop
+namespace IShop.WebApi
 {
     public class Startup
     {
@@ -20,7 +20,12 @@ namespace IShop
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseCors(corsPolicyBuilder =>
+                corsPolicyBuilder.WithOrigins("http://localhost:8080")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+            );
             app.UseMvc();
         }
     }

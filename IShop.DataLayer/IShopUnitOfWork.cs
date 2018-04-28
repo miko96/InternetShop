@@ -8,6 +8,7 @@ namespace IShop.DataLayer
     {
         IRepository<Post> Posts { get; }
         IRepository<Comment> Comments { get; }
+        IRepository<ProductItem> ProductItems { get; }
 
         Task SaveAsync();
     }

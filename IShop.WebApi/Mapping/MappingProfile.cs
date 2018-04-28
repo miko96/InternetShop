@@ -8,11 +8,13 @@ namespace IShop.WebApi.Mapping
     {
         public MappingProfile()
         {
-                CreateMap<Business.Comment, Comment>()
-                    .ReverseMap();
+            CreateMap<Business.Comment, Comment>()
+                .ReverseMap();
 
-                CreateMap<Business.Post, Post>()
-                    .ReverseMap();
+            CreateMap<Business.Post, Post>()
+                .ReverseMap();
+
+            CreateMap<Business.ProductItem, ProductItem>();
         }
     }
 }

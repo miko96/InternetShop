@@ -8,7 +8,7 @@ namespace IShop.DataLayer.Common.UnitOfWork
         {
             var otionBuilder = new DbContextOptionsBuilder();
             otionBuilder.UseSqlServer(AppSettings.ConnectionString);
-            return new ShopUnitOfWork(otionBuilder.Options);    
+            return new ShopUnitOfWork(otionBuilder.Options);
         }
     }
 }

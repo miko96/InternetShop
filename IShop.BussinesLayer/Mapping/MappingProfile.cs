@@ -13,6 +13,8 @@ namespace IShop.BussinesLayer.Mapping
 
             CreateMap<Domain.Post, Post>()
                 .ReverseMap();
+
+            CreateMap<Domain.ProductItem, ProductItem>();
         }  
     }
 }

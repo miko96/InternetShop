@@ -12,7 +12,7 @@ namespace IShop.WebApi
 
         private static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureServices(DIContainer.RegisterServices)
+                .ConfigureServices(DiContainer.RegisterServices)
                 .UseStartup<Startup>()
                 .UseUrls("http://localhost:8181/")
                 .Build();

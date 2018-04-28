@@ -16,7 +16,7 @@ namespace IShop.WebApi.Controllers
         private readonly ICommentProvider _commentProvider;
 
         public PostController(
-             IMapper mapper,
+            IMapper mapper,
             IPostProvider postProvider,
             ICommentProvider commentProvider)
         {
