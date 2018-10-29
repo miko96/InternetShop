@@ -9,10 +9,10 @@ namespace IShop.WebApi
         {
             BussinesLayer.DIContainer.RegisterServices(services);
 
-            services.AddMvc()
-                .AddJsonOptions(
-                        options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );
+            services
+                .AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = 
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(cfg => cfg.AddProfiles("IShop.WebApi", "IShop.BussinesLayer"));
         }

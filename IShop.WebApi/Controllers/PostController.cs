@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IShop.BussinesLayer.Providers.Interfaces;
+using IShop.WebApi.Common.Filters;
 using IShop.WebApi.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace IShop.WebApi.Controllers
         }
 
         [HttpPost, Route("")]
+        [ModelValidationAsync]
         public async Task CreatPost([FromBody] Post post)
         {
             var bePost = _mapper.Map<Business.Post>(post);
