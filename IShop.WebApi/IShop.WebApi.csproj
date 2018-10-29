@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\NewFolder\**" />
-    <Content Remove="wwwroot\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
-    <None Remove="wwwroot\NewFolder\**" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +22,5 @@
   <ItemGroup>
     <ProjectReference Include="..\IShop.BussinesLayer\IShop.BussinesLayer.csproj" />
   </ItemGroup>
-
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1Development_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

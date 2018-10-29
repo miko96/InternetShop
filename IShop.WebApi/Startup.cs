@@ -20,17 +20,13 @@ namespace IShop.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            //PhysicalFileProvider
+
             app.UseCors(corsPolicyBuilder =>
-                corsPolicyBuilder
-                    .WithOrigins("http://localhost:8080")
+                corsPolicyBuilder.WithOrigins("http://localhost:8080")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
             );
-
             app.UseMvc();
-
-            app.UseStaticFiles("/content");
         }
     }
 }

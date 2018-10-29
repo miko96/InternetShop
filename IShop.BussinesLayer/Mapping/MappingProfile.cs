@@ -4,7 +4,7 @@ using Domain = IShop.DataLayer.Entities;
 
 namespace IShop.BussinesLayer.Mapping
 {
-    public class MappingProfile : Profile
+    public class MappingProfile : Profile 
     {
         public MappingProfile()
         {
@@ -15,9 +15,6 @@ namespace IShop.BussinesLayer.Mapping
                 .ReverseMap();
 
             CreateMap<Domain.ProductItem, ProductItem>();
-
-            CreateMap<ProductCreate, Domain.ProductItem>();
-
-        }
+        }  
     }
 }

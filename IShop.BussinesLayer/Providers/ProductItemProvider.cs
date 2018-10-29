@@ -1,12 +1,10 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using IShop.BussinesLayer.Entities;
 using IShop.BussinesLayer.Providers.Interfaces;
 using IShop.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain = IShop.DataLayer.Entities;
 
 namespace IShop.BussinesLayer.Providers
 {
@@ -23,17 +21,6 @@ namespace IShop.BussinesLayer.Providers
             _shopUnitOfWork = shopUnitOfWork;
         }
 
-        public async Task<string> CreateProduct(ProductCreate product)
-        {
-            var domainProduct = _mapper.Map<Domain.ProductItem>(product);
-
-            _shopUnitOfWork.ProductItems.Add(domainProduct);
-
-            await _shopUnitOfWork.SaveAsync();
-
-            return domainProduct.ProductKey;
-        }
-
         public async Task<ICollection<ProductItem>> GetAllProducts()
         {
             var products = await _shopUnitOfWork.ProductItems.All
@@ -41,20 +28,6 @@ namespace IShop.BussinesLayer.Providers
 
             return
                 _mapper.Map<ICollection<ProductItem>>(products);
-        }
-
-        public async Task<ProductItem> GetProduct(int productId)
-        {
-            var product = await _shopUnitOfWork.ProductItems.All
-                .FirstOrDefaultAsync(x=> x.ProductItemId == productId);
-
-            await Task.Delay(2000);
-
-            if (product == null) 
-                throw new Exception();
-
-            return 
-                _mapper.Map<ProductItem>(product);
         }
     }
 }

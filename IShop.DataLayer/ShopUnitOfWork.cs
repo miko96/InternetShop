@@ -21,7 +21,10 @@ namespace IShop.DataLayer
             modelBuilder.Entity<ProductItem>().ToTable(nameof(ProductItem));
         }
 
-        public async Task SaveAsync() => await SaveChangesAsync();
+        public async Task SaveAsync()
+        {
+            await SaveChangesAsync();
+        }
 
         public ShopUnitOfWork(DbContextOptions options) : base(options) { }
     }
