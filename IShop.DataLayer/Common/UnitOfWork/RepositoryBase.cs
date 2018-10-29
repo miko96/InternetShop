@@ -6,7 +6,7 @@ namespace IShop.DataLayer.Common.UnitOfWork
 {
     public class RepositoryBase<TDomain> : IRepository<TDomain> where TDomain : class
     {
-        private readonly DbSet<TDomain> _set;
+        private DbSet<TDomain> _set;
 
         public RepositoryBase(DbContext context)
         {

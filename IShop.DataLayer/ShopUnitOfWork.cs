@@ -9,7 +9,6 @@ namespace IShop.DataLayer
     {
         public IRepository<Post> Posts => GetRepository<Post>();
         public IRepository<Comment> Comments => GetRepository<Comment>();
-        public IRepository<ProductItem> ProductItems => GetRepository<ProductItem>();
 
         private const string DefaultShema = "ISH";
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,12 +17,11 @@ namespace IShop.DataLayer
 
             modelBuilder.Entity<Post>().ToTable(nameof(Post));
             modelBuilder.Entity<Comment>().ToTable(nameof(Comment));
-            modelBuilder.Entity<ProductItem>().ToTable(nameof(ProductItem));
         }
 
         public async Task SaveAsync()
         {
-            await SaveChangesAsync();
+            await base.SaveChangesAsync();
         }
 
         public ShopUnitOfWork(DbContextOptions options) : base(options) { }

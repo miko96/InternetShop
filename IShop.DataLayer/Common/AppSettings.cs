@@ -2,6 +2,6 @@
 { 
     public static class AppSettings
     {
-        public static string ConnectionString => "Data Source=(local);Initial Catalog=IShopDataBase;Integrated Security=True";
+        public static string ConnectionString => "Data Source=(localdb)\\ProjectsV13;Initial Catalog=IShopDataBase;Integrated Security=True;Pooling=False;Connect Timeout=30";
     }
 }

@@ -26,15 +26,15 @@ namespace IShop.BusinessLayer.UnitTests
         {
             _posts = new List<Domain.Post>();
 
-            var mockPostsRepository = MockHelper.GetMockRepository(_posts);
+            var _mockPostsRepository = MockHelper.GetMockRepository(_posts);
 
-            var mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
-            mockShopUnitOfWork.Setup(x => x.Posts).Returns(mockPostsRepository.Object);
+            var _mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
+            _mockShopUnitOfWork.Setup(x => x.Posts).Returns(_mockPostsRepository.Object);
 
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
             var mapper = new Mapper(mapperConfig);
 
-            _postProvider = new PostProvider(mockShopUnitOfWork.Object, mapper);
+            _postProvider = new PostProvider(_mockShopUnitOfWork.Object, mapper);
         }
 
         [TearDown]

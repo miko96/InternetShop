@@ -3,18 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IShop.WebApi
 {
-    public static class DiContainer
+    public static class DIContainer
     {
         public static void RegisterServices(IServiceCollection services)
         {
             BussinesLayer.DIContainer.RegisterServices(services);
-
-            //services.AddCors(options =>
-            //    options.AddPolicy
-            //    (
-            //        "AllowAllOrigins",
-            //        builder => builder.AllowAnyOrigin()
-            //    ));
 
             services.AddMvc()
                 .AddJsonOptions(
@@ -22,8 +15,6 @@ namespace IShop.WebApi
                 );
 
             services.AddAutoMapper(cfg => cfg.AddProfiles("IShop.WebApi", "IShop.BussinesLayer"));
-
-
         }
     }
 }

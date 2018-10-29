@@ -26,15 +26,15 @@ namespace IShop.BusinessLayer.UnitTests
         {
             _comments = new List<Domain.Comment>();
 
-            var mockCommentRepository = MockHelper.GetMockRepository(_comments);
+            var _mockCommentRepository = MockHelper.GetMockRepository(_comments);
 
-            var mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
-            mockShopUnitOfWork.Setup(x => x.Comments).Returns(mockCommentRepository.Object);
+            var _mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
+            _mockShopUnitOfWork.Setup(x => x.Comments).Returns(_mockCommentRepository.Object);
 
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
             var mapper = new Mapper(mapperConfig);
 
-            _commentProvider = new CommentProvider(mockShopUnitOfWork.Object, mapper);
+            _commentProvider = new CommentProvider(_mockShopUnitOfWork.Object, mapper);
         }
 
         [TearDown]

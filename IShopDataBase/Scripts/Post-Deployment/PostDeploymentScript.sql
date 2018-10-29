@@ -11,4 +11,3 @@ Post-Deployment Script Template
 */
 :r .\InsertDefaultPosts.sql
 :r .\InsertDefaultComments.sql
-:r .\InsertDefaultProductItems.sql
