@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace IShop
+namespace IShop.WebApi
 {
     public class Startup
     {

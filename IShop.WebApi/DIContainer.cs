@@ -3,11 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IShop.WebApi
 {
-    public static class DIContainer
+    public static class DiContainer
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            BussinesLayer.DIContainer.RegisterServices(services);
+            BussinesLayer.DiContainer.RegisterServices(services);
 
             services
                 .AddMvc()

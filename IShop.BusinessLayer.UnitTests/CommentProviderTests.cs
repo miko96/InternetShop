@@ -26,15 +26,15 @@ namespace IShop.BusinessLayer.UnitTests
         {
             _comments = new List<Domain.Comment>();
 
-            var _mockCommentRepository = MockHelper.GetMockRepository(_comments);
+            var mockCommentRepository = MockHelper.GetMockRepository(_comments);
 
-            var _mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
-            _mockShopUnitOfWork.Setup(x => x.Comments).Returns(_mockCommentRepository.Object);
+            var mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
+            mockShopUnitOfWork.Setup(x => x.Comments).Returns(mockCommentRepository.Object);
 
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
             var mapper = new Mapper(mapperConfig);
 
-            _commentProvider = new CommentProvider(_mockShopUnitOfWork.Object, mapper);
+            _commentProvider = new CommentProvider(mockShopUnitOfWork.Object, mapper);
         }
 
         [TearDown]
@@ -44,7 +44,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public void Sould_Not_Delete_Comment_If_It_Not_Exitsts_And_Throw_Ex()
+        public void Should_Not_Delete_Comment_If_It_Not_Exitsts_And_Throw_Ex()
         {
             //Act & Assert
             Assert.ThrowsAsync<Exception>(
@@ -53,7 +53,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Delete_Comment()
+        public async Task Should_Delete_Comment()
         {
             var existsComment = TestComments.First();
             _comments.Add(existsComment);
@@ -66,7 +66,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public void Sould_Not_Create_New_Comment_If_It_Exitsts_And_Throw_Ex()
+        public void Should_Not_Create_New_Comment_If_It_Exitsts_And_Throw_Ex()
         {
             //Arrange
             var newComment = new Comment
@@ -84,7 +84,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Create_New_Comment()
+        public async Task Should_Create_New_Comment()
         {
             //Arrange
             var newComment = new Comment
@@ -100,7 +100,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Get_Comment_By_Id()
+        public async Task Should_Get_Comment_By_Id()
         {
             //Arrange
             _comments.AddRange(TestComments);
@@ -114,7 +114,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Get_All_Comments()
+        public async Task Should_Get_All_Comments()
         {
             //Arrange
             _comments.AddRange(TestComments);
@@ -131,7 +131,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Get_Post_Comments()
+        public async Task Should_Get_Post_Comments()
         {
             //Arrange
             _comments.AddRange(TestComments);
@@ -147,7 +147,7 @@ namespace IShop.BusinessLayer.UnitTests
             );
         }
 
-        private ICollection<Domain.Comment> TestComments =>
+        private static ICollection<Domain.Comment> TestComments =>
             new List<Domain.Comment>
             {
                 new Domain.Comment

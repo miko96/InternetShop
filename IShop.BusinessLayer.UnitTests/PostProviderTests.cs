@@ -26,15 +26,15 @@ namespace IShop.BusinessLayer.UnitTests
         {
             _posts = new List<Domain.Post>();
 
-            var _mockPostsRepository = MockHelper.GetMockRepository(_posts);
+            var mockPostsRepository = MockHelper.GetMockRepository(_posts);
 
-            var _mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
-            _mockShopUnitOfWork.Setup(x => x.Posts).Returns(_mockPostsRepository.Object);
+            var mockShopUnitOfWork = new Mock<IShopUnitOfWork>();
+            mockShopUnitOfWork.Setup(x => x.Posts).Returns(mockPostsRepository.Object);
 
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile()));
             var mapper = new Mapper(mapperConfig);
 
-            _postProvider = new PostProvider(_mockShopUnitOfWork.Object, mapper);
+            _postProvider = new PostProvider(mockShopUnitOfWork.Object, mapper);
         }
 
         [TearDown]
@@ -44,7 +44,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public void Sould_Not_Delete_Post_If_It_Not_Exitsts_And_Throw_Ex()
+        public void Should_Not_Delete_Post_If_It_Not_Exitsts_And_Throw_Ex()
         {
             //Act & Assert
             Assert.ThrowsAsync<Exception>(
@@ -53,7 +53,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Delete_Post()
+        public async Task Should_Delete_Post()
         {
             var existsPost = TestPostss.First();
             _posts.Add(existsPost);
@@ -66,7 +66,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public void Sould_Not_Create_New_Post_If_It_Exitsts_And_Throw_Ex()
+        public void Should_Not_Create_New_Post_If_It_Exitsts_And_Throw_Ex()
         {
             //Arrange
             var newPost = new Post
@@ -83,7 +83,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Create_New_Post()
+        public async Task Should_Create_New_Post()
         {
             //Arrange
             var newPost = new Post
@@ -101,7 +101,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Get_Post_By_Id()
+        public async Task Should_Get_Post_By_Id()
         {
             //Arrange
             _posts.AddRange(TestPostss);
@@ -115,7 +115,7 @@ namespace IShop.BusinessLayer.UnitTests
         }
 
         [Test]
-        public async Task Sould_Get_All_Posts()
+        public async Task Should_Get_All_Posts()
         {
             //Arrange
             _posts.AddRange(TestPostss);
@@ -131,7 +131,7 @@ namespace IShop.BusinessLayer.UnitTests
             );
         }
 
-        private ICollection<Domain.Post> TestPostss =>
+        private static ICollection<Domain.Post> TestPostss =>
             new List<Domain.Post>
             {
                 new Domain.Post

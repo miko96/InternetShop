@@ -21,7 +21,7 @@ namespace IShop.DataLayer
 
         public async Task SaveAsync()
         {
-            await base.SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         public ShopUnitOfWork(DbContextOptions options) : base(options) { }

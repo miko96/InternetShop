@@ -18,9 +18,7 @@ namespace IShop.WebApi.Entities
             if (string.IsNullOrEmpty(Content))
                 yield return new ValidationResult("Post should have content", new[] { nameof(Content) });
 
-            if (Comments?.Count > 0)
-                yield break;
-            else
+            if (Comments == null || Comments.Count < 1)
                 yield return new ValidationResult("Post should have at least one comment", new[] { nameof(Comments) });
         }
     }
