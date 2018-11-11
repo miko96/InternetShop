@@ -1,18 +1,21 @@
 ﻿using AutoMapper;
-using IShop.BussinesLayer.Entities;
+using IShop.BussinesLayer.Entities.Comment;
+using IShop.BussinesLayer.Entities.Post;
 using Domain = IShop.DataLayer.Entities;
 
 namespace IShop.BussinesLayer.Mapping
 {
-    public class MappingProfile : Profile 
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<Domain.Comment, Comment>()
-                .ReverseMap();
+            CreateMap<CommentCreate, Domain.Comment>();
+            CreateMap<CommentUpdate, Domain.Comment>();
+            CreateMap<Domain.Comment, Comment>();
 
-            CreateMap<Domain.Post, Post>()
-                .ReverseMap();
-        }  
+            CreateMap<PostCreate, Domain.Post>();
+            CreateMap<PostUpdate, Domain.Post>();
+            CreateMap<Domain.Post, Post>();
+        }
     }
 }

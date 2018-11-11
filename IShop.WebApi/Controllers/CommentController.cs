@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IShop.BussinesLayer.Providers.Interfaces;
-using IShop.WebApi.Entities;
+using IShop.WebApi.Common.Filters;
+using IShop.WebApi.Entities.Comment;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,19 +22,20 @@ namespace IShop.WebApi.Controllers
         }
 
         [HttpPost, Route("")]
-        public async Task CreateComment([FromBody] Comment comment)
+        [ModelValidationAsync]
+        public async Task<Comment> CreateComment([FromBody] CommentCreateValidatable commentCreate)
         {
-            var beCommnet = _mapper.Map<Business.Comment>(comment);
-
-            await _commentProvider.CreateComment(beCommnet);
+            var comment = _mapper.Map<Business.Comment.CommentCreate>(commentCreate);
+            var createdComment = await _commentProvider.CreateComment(comment);
+            return _mapper.Map<Comment>(createdComment);
         }
 
         [HttpPut, Route("")]
-        public async Task UpdateComment([FromBody] Comment comment)
+        public async Task<Comment> UpdateComment([FromBody] Comment commentUpdate)
         {
-            var beCommnet = _mapper.Map<Business.Comment>(comment);
-
-            await _commentProvider.UpdateComment(beCommnet);
+            var comment = _mapper.Map<Business.Comment.CommentUpdate>(commentUpdate);
+            var updatedComment = await _commentProvider.UpdateComment(comment);
+            return _mapper.Map<Comment>(updatedComment);
         }
 
         [HttpDelete, Route("{commentId}")]

@@ -1,9 +1,9 @@
-﻿namespace IShop.WebApi.Entities
+﻿namespace IShop.BussinesLayer.Entities.Comment
 {
     public class Comment
     {
         public int CommentId { get; set; }
-        public int? PostId { get; set; }
+        public int PostId { get; set; }
         public string CommentText { get; set; }
     }
 }

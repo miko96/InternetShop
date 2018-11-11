@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using IShop.BussinesLayer.Providers.Interfaces;
 using IShop.WebApi.Common.Filters;
-using IShop.WebApi.Entities;
+using IShop.WebApi.Entities.Comment;
+using IShop.WebApi.Entities.Post;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,19 +29,19 @@ namespace IShop.WebApi.Controllers
 
         [HttpPost, Route("")]
         [ModelValidationAsync]
-        public async Task CreatPost([FromBody] Post post)
+        public async Task CreatPost([FromBody] PostCreateValidatable postCreate)
         {
-            var bePost = _mapper.Map<Business.Post>(post);
+            var post = _mapper.Map<Business.Post.PostCreate>(postCreate);
 
-            await _postProvider.CreatePost(bePost);
+            await _postProvider.CreatePost(post);
         }
 
         [HttpPut, Route("")]
-        public async Task UpdatePost([FromBody] Post post)
+        public async Task UpdatePost([FromBody] PostUpdate postUpdate)
         {
-            var bePost = _mapper.Map<Business.Post>(post);
+            var post = _mapper.Map<Business.Post.PostUpdate>(postUpdate);
 
-            await _postProvider.UpdatePost(bePost);
+            await _postProvider.UpdatePost(post);
         }
 
         [HttpDelete, Route("{postId}")]

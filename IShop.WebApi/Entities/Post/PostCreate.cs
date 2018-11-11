@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using IShop.WebApi.Entities.Comment;
 
-namespace IShop.WebApi.Entities
+namespace IShop.WebApi.Entities.Post
 {
-    public class Post : IValidatableObject
+    public class PostCreate
     {
-        public int PostId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentCreate> Comments { get; set; }
+    }
 
+    public class PostCreateValidatable : PostCreate, IValidatableObject
+    {
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrEmpty(Title))

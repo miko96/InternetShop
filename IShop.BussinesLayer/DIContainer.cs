@@ -1,14 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IShop.BussinesLayer.Providers;
 using IShop.BussinesLayer.Providers.Interfaces;
-using IShop.BussinesLayer.Providers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IShop.BussinesLayer
 {
     public static class DiContainer
     {
-        public static void RegisterServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            DataLayer.DiContainer.RegisterServices(services);
+            DataLayer.DiContainer.ConfigureServices(services, configuration);
             
             services.AddScoped<ICommentProvider, CommentProvider>();
             services.AddScoped<IPostProvider, PostProvider>();

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using IShop.BussinesLayer.Entities;
+using IShop.BussinesLayer.Entities.Comment;
 using IShop.BussinesLayer.Providers.Interfaces;
-using IShop.DataLayer;
+using IShop.DataLayer.ShopDbContext;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IShop.BussinesLayer.Common.Exceptions;
 using Domain = IShop.DataLayer.Entities;
 
 namespace IShop.BussinesLayer.Providers
@@ -14,81 +14,67 @@ namespace IShop.BussinesLayer.Providers
     public class CommentProvider : ICommentProvider
     {
         private readonly IMapper _mapper;
-        private readonly IShopUnitOfWork _shopUnitOfWork;
+        private readonly IShopDbContext _shopDbContext;
 
-        public CommentProvider(IShopUnitOfWork shopUnitOfWork, IMapper mapper)
+        public CommentProvider(IShopDbContext shopDbContext, IMapper mapper)
         {
             _mapper = mapper;
-            _shopUnitOfWork = shopUnitOfWork;
+            _shopDbContext = shopDbContext;
         }
 
-        public async Task CreateComment(Comment comment)
+        public async Task<Comment> CreateComment(CommentCreate commentCreate)
         {
-            var alreadyExists = _shopUnitOfWork.Comments.All
-              .Any(c => c.CommentId == comment.CommentId);
+            var comment = _mapper.Map<Domain.Comment>(commentCreate);
+            _shopDbContext.CommentRepository.Add(comment);
+            await _shopDbContext.SaveAsync();
 
-            if (alreadyExists)
-            {
-                //!!!
-                throw new Exception();
-            }
-
-            var domainComment = _mapper.Map<Domain.Comment>(comment);
-            _shopUnitOfWork.Comments.Add(domainComment);
-
-            await _shopUnitOfWork.SaveAsync();
+            return _mapper.Map<Comment>(comment);
         }
 
-        public async Task UpdateComment(Comment comment)
+        public async Task<Comment> UpdateComment(CommentUpdate commentUpdate)
         {
-            var alreadyExists = _shopUnitOfWork.Comments.All
-              .Any(c => c.CommentId == comment.CommentId);
-            
-            if(!alreadyExists)
-            {
-                //!!!
-                throw new Exception();
-            }
+            var comment = await _shopDbContext.CommentRepository.All
+                .FirstOrDefaultAsync(c => c.CommentId == commentUpdate.CommentId);
 
-            var domainComment = _mapper.Map<Domain.Comment>(comment);
-            _shopUnitOfWork.Comments.Update(domainComment);
+            if (comment == null)
+                throw new EntityNotFoundException(
+                    $"Comment {commentUpdate.CommentId} not found! Can't update the comment");
 
-            await _shopUnitOfWork.SaveAsync();
+            _mapper.Map(commentUpdate, comment);
+            _shopDbContext.CommentRepository.Update(comment);
+            await _shopDbContext.SaveAsync();
+
+            return _mapper.Map<Comment>(comment);
         }
 
         public async Task DeleteComment(int commentId)
         {
-            var comment = await _shopUnitOfWork.Comments.All
+            var comment = await _shopDbContext.CommentRepository.All
               .FirstOrDefaultAsync(c => c.CommentId == commentId);
 
             if (comment == null)
-            {
-                //!!!
-                throw new Exception();
-            }
+                throw new EntityNotFoundException(
+                    $"Comment {commentId} not found! Can't delete the comment");
 
-            _shopUnitOfWork.Comments.Remove(comment);
-            //await _shopUnitOfWork.SaveAsync();
+            _shopDbContext.CommentRepository.Remove(comment);
+            // await _shopUnitOfWork.SaveAsync();
         }
 
 
         public async Task<Comment> GetComment(int commentId)
         {
-            var comment = await _shopUnitOfWork.Comments.All
+            var comment = await _shopDbContext.CommentRepository.All
                 .FirstOrDefaultAsync(c => c.CommentId == commentId);
 
             if (comment == null)
-            {
-                //!!!
-                throw new Exception();
-            }
+                throw new EntityNotFoundException($"Comment {commentId} not found!");
 
             return _mapper.Map<Comment>(comment);
         }
 
         public async Task<ICollection<Comment>> GetAllComments()
         {
-            var comments = await _shopUnitOfWork.Comments.All
+            var comments = await _shopDbContext.CommentRepository.All
                 .ToListAsync();
 
             return _mapper.Map<ICollection<Comment>>(comments);
@@ -96,7 +82,7 @@ namespace IShop.BussinesLayer.Providers
 
         public async Task<ICollection<Comment>> GetPostComments(int postId)
         {
-            var postComments = await _shopUnitOfWork.Comments.All
+            var postComments = await _shopDbContext.CommentRepository.All
                 .Where(c => c.PostId == postId)
                 .ToListAsync();
 

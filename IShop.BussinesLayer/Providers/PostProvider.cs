@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using IShop.BussinesLayer.Entities;
+﻿using AutoMapper;
+using IShop.BussinesLayer.Common.Exceptions;
+using IShop.BussinesLayer.Entities.Post;
 using IShop.BussinesLayer.Providers.Interfaces;
-using IShop.DataLayer;
+using IShop.DataLayer.ShopDbContext;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain = IShop.DataLayer.Entities;
 
 namespace IShop.BussinesLayer.Providers
@@ -14,78 +13,69 @@ namespace IShop.BussinesLayer.Providers
     public class PostProvider : IPostProvider
     {
         private readonly IMapper _mapper;
-        private readonly IShopUnitOfWork _shopUnitOfWork;
+        private readonly IShopDbContext _shopDbContext;
 
-        public PostProvider(IShopUnitOfWork shopUnitOfWork, IMapper mapper)
+        public PostProvider(IShopDbContext shopDbContext, IMapper mapper)
         {
             _mapper = mapper;
-            _shopUnitOfWork = shopUnitOfWork;
+            _shopDbContext = shopDbContext;
         }
 
-        public async Task CreatePost(Post post)
+        public async Task<Post> CreatePost(PostCreate postCreate)
         {
-            var alreadyExists = _shopUnitOfWork.Posts.All
-                .Any(p => p.PostId == post.PostId);
+            var post = _mapper.Map<Domain.Post>(postCreate);
+            _shopDbContext.PostRepository.Add(post);
+            await _shopDbContext.SaveAsync();
 
-            if (alreadyExists)
-            {
-                throw new Exception();
-            }
-
-            var domainPost = _mapper.Map<Domain.Post>(post);
-            _shopUnitOfWork.Posts.Add(domainPost);
-
-            await _shopUnitOfWork.SaveAsync();
+            return _mapper.Map<Post>(post);
         }
 
-        public async Task UpdatePost(Post post)
+        public async Task<Post> UpdatePost(PostUpdate postUpdate)
         {
-            var alreadyExists = _shopUnitOfWork.Posts.All
-                .Any(p => p.PostId == post.PostId);
+            var post = await _shopDbContext.PostRepository.All
+                .FirstOrDefaultAsync(p => p.PostId == postUpdate.PostId);
 
-            if (alreadyExists)
-            {
-                throw new Exception();
-            }
+            if (post == null)
+                throw new EntityNotFoundException(
+                    $"Post {postUpdate.PostId} not found! Can't update the post");
 
-            var domainPost = _mapper.Map<Domain.Post>(post);
-            _shopUnitOfWork.Posts.Update(domainPost);
+            _mapper.Map(postUpdate, post);
+            _shopDbContext.PostRepository.Update(post);
+            await _shopDbContext.SaveAsync();
 
-            await _shopUnitOfWork.SaveAsync();
+            return _mapper.Map<Post>(post);
         }
 
         public async Task DeletePost(int postId)
         {
-            var post = await _shopUnitOfWork.Posts.All
+            var post = await _shopDbContext.PostRepository.All
                 .Include(p => p.Comments)
                 .FirstOrDefaultAsync(p => p.PostId == postId);
 
             if (post == null)
-            {
-                throw new Exception();
-            }
+                throw new EntityNotFoundException(
+                    $"Post {postId} not found! Can't delete the post");
 
-            _shopUnitOfWork.Posts.Remove(post);
-            //await _shopUnitOfWork.SaveAsync();
+            _shopDbContext.PostRepository.Remove(post);
+            // await _shopUnitOfWork.SaveAsync();
         }
 
         public async Task<Post> GetPost(int postId)
         {
-            var post = await _shopUnitOfWork.Posts.All
+            var post = await _shopDbContext.PostRepository.All
                 .Include(p => p.Comments)
                 .FirstOrDefaultAsync(p => p.PostId == postId);
 
             if (post == null)
-            {
-                throw new Exception();
-            }
+                throw new EntityNotFoundException(
+                    $"Post {postId} not found!");
 
             return _mapper.Map<Post>(post);
         }
 
         public async Task<ICollection<Post>> GetAllPosts()
         {
-            var posts = await _shopUnitOfWork.Posts.All
+            var posts = await _shopDbContext.PostRepository.All
                 .Include(p => p.Comments)
                 .ToListAsync();
 

@@ -1,14 +1,16 @@
-﻿using IShop.DataLayer.Common.UnitOfWork;
+﻿using IShop.DataLayer.Common.DbContextBase;
+using IShop.DataLayer.Common.RepositoryBase;
 using IShop.DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace IShop.DataLayer
+namespace IShop.DataLayer.ShopDbContext
 {
-    public class ShopUnitOfWork : UnitOfWorkBase, IShopUnitOfWork
+    public class ShopDbContext : DbContextBase, IShopDbContext
     {
-        public IRepository<Post> Posts => GetRepository<Post>();
-        public IRepository<Comment> Comments => GetRepository<Comment>();
+        public IRepository<Post> PostRepository => GetRepository<Post>();
+        public IRepository<Comment> CommentRepository => GetRepository<Comment>();
+
 
         private const string DefaultShema = "ISH";
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +26,6 @@ namespace IShop.DataLayer
             await SaveChangesAsync();
         }
 
-        public ShopUnitOfWork(DbContextOptions options) : base(options) { }
+        public ShopDbContext(DbContextOptions options) : base(options) { }
     }
 }

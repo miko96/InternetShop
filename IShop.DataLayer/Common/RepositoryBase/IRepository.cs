@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace IShop.DataLayer.Common.UnitOfWork
+namespace IShop.DataLayer.Common.RepositoryBase
 {
     public interface IRepository<TEntity> where TEntity : class
     {

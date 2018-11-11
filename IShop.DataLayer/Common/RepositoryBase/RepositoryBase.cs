@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace IShop.DataLayer.Common.UnitOfWork
+namespace IShop.DataLayer.Common.RepositoryBase
 {
     public class RepositoryBase<TDomain> : IRepository<TDomain> where TDomain : class
     {

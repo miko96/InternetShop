@@ -1,8 +1,8 @@
-﻿using IShop.DataLayer.Common.UnitOfWork;
-using Moq;
+﻿using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IShop.DataLayer.Common.RepositoryBase;
 
 namespace IShop.BusinessLayer.UnitTests.MockHelpers
 {

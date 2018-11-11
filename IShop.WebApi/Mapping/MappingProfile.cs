@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using IShop.WebApi.Entities;
+using IShop.WebApi.Entities.Comment;
+using IShop.WebApi.Entities.Post;
 using Business = IShop.BussinesLayer.Entities;
 
 namespace IShop.WebApi.Mapping
@@ -8,11 +9,13 @@ namespace IShop.WebApi.Mapping
     {
         public MappingProfile()
         {
-                CreateMap<Business.Comment, Comment>()
-                    .ReverseMap();
+            CreateMap<CommentCreate, Business.Comment.CommentCreate>();
+            CreateMap<CommentUpdate, Business.Comment.CommentUpdate>();
+            CreateMap<Business.Comment.Comment, Comment>();
 
-                CreateMap<Business.Post, Post>()
-                    .ReverseMap();
+            CreateMap<PostCreate, Business.Post.PostCreate>();
+            CreateMap<PostUpdate, Business.Post.PostUpdate>();
+            CreateMap<Business.Post.Post, Post>();
         }
     }
 }
